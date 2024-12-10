@@ -25,7 +25,6 @@ export default function CourseRoutes(app) {
     res.json(course);
   });
  
- 
   app.post("/api/courses/:courseId/modules", async (req, res) => {
     const { courseId } = req.params;
     const module = {
@@ -47,7 +46,6 @@ export default function CourseRoutes(app) {
     res.json(courses);
   });
 
-  // Create course for current user
   app.post("/api/users/current/courses", (req, res) => {
     try {
       const userId = req.session['currentUser']._id;
@@ -60,14 +58,12 @@ export default function CourseRoutes(app) {
     }
   });
 
-  // Delete course
   app.delete("/api/courses/:courseId", (req, res) => {
     const { courseId } = req.params;
     dao.deleteCourse(courseId);
     res.sendStatus(204);
   });
 
-  // Update course
   app.put("/api/courses/:courseId", async (req, res) => {
     const { courseId } = req.params;
     const courseUpdates = req.body;

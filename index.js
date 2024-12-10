@@ -13,7 +13,8 @@ import EnrollmentsRoutes from './Kanbas/Enrollments/routes.js';
 import "dotenv/config";
 import session from "express-session";
 
-const CONNECTION_STRING = process.env.MONGO_CONNECTION_STRING || "mongodb://127.0.0.1:27017/kanbas"
+const CONNECTION_STRING = "mongodb://127.0.0.1:27017/kanbas"
+
 mongoose.connect(CONNECTION_STRING);
 const app = express();
 
@@ -25,6 +26,12 @@ app.use(
 );
 
 app.use(express.json());
+
+const addNewCourse = async () => {
+
+  const newCourse = await courseClient.createCourse(course);
+  setCourses([...courses, newCourse]);
+};
 
 const sessionOptions = {
   secret: process.env.SESSION_SECRET || "kanbas",
